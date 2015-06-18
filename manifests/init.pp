@@ -147,8 +147,13 @@ class hubot (
     $service_ensure_real = $service_ensure
     $service_enable_real = $service_enable
   }
-  class { '::nodejs':
-    manage_repo => $nodejs_manage_repo,
+  
+  if $nodejs_manage_repo {
+    class { '::nodejs':
+      manage_repo => $nodejs_manage_repo,
+    }
+  } else {
+    class { '::nodejs': }
   }
 
   class { '::hubot::install': }
