@@ -131,6 +131,7 @@ class hubot (
   $auto_accept_host_key = $::hubot::params::auto_accept_host_key,
   $service_ensure       = $::hubot::params::service_ensure,
   $service_enable       = $::hubot::params::service_enable,
+  $install_nodejs       = $::hubot::params::install_nodejs,
   $nodejs_manage_repo   = $::hubot::params::nodejs_manage_repo,
 ) inherits hubot::params {
 
