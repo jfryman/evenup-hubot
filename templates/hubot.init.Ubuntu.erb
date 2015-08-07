@@ -16,6 +16,7 @@ LOG_FILE="<%= scope.lookupvar('hubot::log_file_real') %>"
 USER=hubot
 DISPLAY_NAME="<%= scope.lookupvar('hubot::display_name') %>"
 ALIAS="<%= scope.lookupvar('hubot::chat_alias') %>"
+LOG_OPTIONS="-t hubot"
 
 HUBOT_BIN="$ROOT_DIR/bin/hubot"
 HUBOT_OPTS="--name ${DISPLAY_NAME} --adapter ${ADAPTER} --alias ${ALIAS}"
@@ -34,7 +35,7 @@ set -e
 
 start_bot ()
 {
-  start-stop-daemon --start --quiet --chuid $USER --chdir $ROOT_DIR --pidfile $PIDFILE --make-pidfile --background --name hubot --startas $HUBOT_BIN -- $HUBOT_OPTS < /dev/null 2>&1 | logger -t hubot
+  start-stop-daemon --start --quiet --chuid $USER --chdir $ROOT_DIR --pidfile $PIDFILE --make-pidfile --background --name hubot --startas ($HUBOT_BIN -- $HUBOT_OPTS < /dev/null 2>&1 | logger $LOG_OPTIONS 2> /dev/null)&
   log_end_msg $?
 }
 
