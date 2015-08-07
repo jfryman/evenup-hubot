@@ -31,6 +31,12 @@ class hubot::config {
     content => template("hubot/${hubot::params::hubot_init}"),
     notify  => Class['hubot::service'],
   }
+  
+  file { '/var/log/hubot.log':
+    ensure => present,
+    owner  => 'hubot',
+    mode   => '0644',
+  }
 
   if $::hubot::git_source {
     require 'git'
